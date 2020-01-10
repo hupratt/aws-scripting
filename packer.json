@@ -1,7 +1,7 @@
 {
     "variables": {
-      "aws_access_key": "{{env `AWS_SECRET`}}",
-      "aws_secret_key": "{{user `AWS_PUBLIC`}}"
+      "aws_access_key": "{{env `aws_access_key`}}",
+      "aws_secret_key": "{{env `aws_secret_key`}}"
       
     },
     "builders": [{
@@ -12,6 +12,6 @@
       "source_ami" : "ami-0be057a22c63962cb",
       "instance_type": "t2.micro",
       "ssh_username": "ubuntu",
-      "ami_name": "jenkins-master-1.0-{{timestamp}}"
+      "ami_name": "jenkins-master-1.0"
     }]
 }
