@@ -1,27 +1,17 @@
 {
-    "variables" : {
-        "aws_access_key": "{{env `AWS_PUBLIC`}}",
-        "aws_secret_key": "{{env `AWS_SECRET`}}",
-        "region" : "eu-west-2",
-        "source_ami" : "ami-02eeccc0eadfb6d5b"
+    "variables": {
+      "aws_access_key": "{{env `AWS_SECRET`}}",
+      "aws_secret_key": "{{user `AWS_PUBLIC`}}"
+      
     },
-    "builders" : [
-        {
-            "type" : "amazon-ebs",
-            "profile" : "default",
-            "region" : "{{user `region`}}",
-            "instance_type" : "t2.micro",
-            "source_ami" : "{{user `source_ami`}}",
-            "ssh_username" : "ubuntu",
-            "ami_name" : "jenkins-master-1.0-{{timestamp}}",
-            "ami_description" : "Amazon Linux Image with Jenkins Server",
-            "run_tags" : {
-                "Name" : "packer-builder-docker"
-            },
-            "tags" : {
-                "Tool" : "Packer",
-                "Author" : "hupratt"
-            }
-        }
-    ]
+    "builders": [{
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "eu-west-2",
+      "source_ami" : "ami-0be057a22c63962cb",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "ami_name": "jenkins-master-1.0-{{timestamp}}"
+    }]
 }
