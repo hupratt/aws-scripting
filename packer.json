@@ -1,7 +1,9 @@
 {
     "variables" : {
+        "aws_access_key": "{{env `AWS_PUBLIC`}}",
+        "aws_secret_key": "{{env `AWS_SECRET`}}",
         "region" : "eu-west-2",
-        "source_ami" : "ami-0ebc281c20e89ba4b"
+        "source_ami" : "ami-02eeccc0eadfb6d5b"
     },
     "builders" : [
         {
@@ -10,28 +12,16 @@
             "region" : "{{user `region`}}",
             "instance_type" : "t2.micro",
             "source_ami" : "{{user `source_ami`}}",
-            "ssh_username" : "ec2-user",
-            "ami_name" : "jenkins-master-2.107.2",
+            "ssh_username" : "ubuntu",
+            "ami_name" : "jenkins-master-1.0-{{timestamp}}",
             "ami_description" : "Amazon Linux Image with Jenkins Server",
             "run_tags" : {
                 "Name" : "packer-builder-docker"
             },
             "tags" : {
                 "Tool" : "Packer",
-                "Author" : "mlabouardy"
+                "Author" : "hupratt"
             }
-        }
-    ],
-    "provisioners" : [
-        {
-            "type" : "file",
-            "source" : "COPY FILES",
-            "destination" : "COPY FILES"
-        },
-        {
-            "type" : "shell",
-            "script" : "./setup.sh",
-            "execute_command" : "sudo -E -S sh '{{ .Path }}'"
         }
     ]
 }
