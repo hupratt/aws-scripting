@@ -1,0 +1,19 @@
+# Location: /etc/systemd/system/rural.service
+
+[Unit]
+Description=uWSGI server for rural portugal
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/Dev/rural
+ExecStartPre=/bin/mkdir -p /home/ubuntu/Dev/rural/src/rural/run
+ExecStart=/home/ubuntu/Dev/rural/bin/uwsgi --emperor /home/ubuntu/Dev/rural/src/rural/uwsgi.ini
+Restart=always #make sure the server is running
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

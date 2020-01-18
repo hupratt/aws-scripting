@@ -1,3 +1,6 @@
+# Location: /etc/systemd/system/lpp.service
+# Location: /etc/systemd/system/saleor.service
+
 [Unit]
 Description=uWSGI server for la petite portugaise's shop
 After=network.target

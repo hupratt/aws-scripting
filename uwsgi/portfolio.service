@@ -1,0 +1,19 @@
+# Location: /etc/systemd/system/portfolio.service
+
+[Unit]
+Description=uWSGI server for portfolio website
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/Dev/portfolio
+ExecStartPre=/bin/mkdir -p /home/ubuntu/Dev/portfolio/src/Portfolio/run
+ExecStart=/home/ubuntu/Dev/portfolio/bin/uwsgi --emperor /home/ubuntu/Dev/portfolio/src/Portfolio/uwsgi.ini
+Restart=always #make sure the server is running
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

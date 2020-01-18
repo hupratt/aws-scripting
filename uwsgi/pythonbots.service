@@ -1,0 +1,19 @@
+# Location: /etc/systemd/system/pythonbots.service
+
+[Unit]
+Description=uWSGI server for the blog
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/Dev/PythonBots
+ExecStartPre=/bin/mkdir -p /home/ubuntu/Dev/PythonBots/src/PythonBots/run
+ExecStart=/home/ubuntu/Dev/PythonBots/bin/uwsgi --emperor /home/ubuntu/Dev/PythonBots/src/PythonBots/uwsgi.ini
+Restart=always #make sure the server is running
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
