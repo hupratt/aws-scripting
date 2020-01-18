@@ -1,0 +1,18 @@
+[Unit]
+Description=uWSGI server for la petite portugaise's shop
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/Dev/saleor
+ExecStartPre=/bin/mkdir -p /home/ubuntu/Dev/saleor/saleor/wsgi/run
+ExecStart=/home/ubuntu/Dev/saleor/bin/uwsgi --emperor /home/ubuntu/Dev/saleor/saleor/wsgi/uwsgi.ini
+Restart=always #make sure the server is running
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
+
