@@ -1,0 +1,43 @@
+# /var/lib/jenkins/.ssh/config
+
+# plain text config file inside /var/lib/jenkins/.ssh/# Alias for project1
+Host lpp
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_rsa
+
+# Alias for project2
+Host pbots
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_rsa2
+
+# Alias for project3
+Host portfolio
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_rsa3
+
+# Alias for saleor
+Host saleor
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_rsa4
+
+# Alias for rural portugal
+Host rural
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_rsa5
+
+# Alias for myshop
+Host myshop
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_rsa6
+
+# Alias for glob
+Host glob
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_rsa7
