@@ -1,43 +1,48 @@
-proc means data=work.shoes mean sum maxdec=2;
+/*
+The SAS language
+1. libraries provide a way for everyone to 
+access the structured data without have to care
+about data format and providing the full path location
+2. no indentation, no case sensitivity
+3. As opposed to Data steps, which are used for Filter, join, I/O
+procedures generate reports and graphs
+4. lib ref (pointer) destroys after session is terminated. 
+librefs also create a lock that prevents others from using it at the same time. 
+5. Using _ALL_ in the BY statement sorts by all columns and ensures that 
+duplicate rows are adjacent in thesorted table and are removed. 
+6. As opposed to Data steps, which are used for Filter, join, I/O
+procedures generate reports and graphs
+*/
+
+/* 
+Data step: copy the library sashelp.shoes, store it in the library work.shoes
+and create a new variable/column
+*/
 data work.shoes;
 	set sashelp.shoes;
 	NetSales=Sales-Returns;
 	Whatever=Sales;
 run;
 
-proc means data=work.shoes mean sum maxdec=2;
-	var NetSales;
-	class region;
-run;
-
+/* Reading meta data */
 PROC CONTENTS data="~/EPG194/data/storm_summary.sas7bdat";
 run;
-
-/* Create a library
-
-LIBNAME libref engine "PATH" */
-/* Closes the connection to the library
-
-LIBNAME libref clear */
-/* Summarize data
-
-proc contents data=libref.tablename; run; */
-LIBNAME PG1 base "~/EPG194/data/storm_summary.sas7bdat";
-LIBNAME NP xlsx "~/EPG194/data/np_info.xlsx";
-
 PROC CONTENTS data=NP.parks;
 run;
 
+/* Create a libref */
+LIBNAME PG1 base "~/EPG194/data/storm_summary.sas7bdat";
+LIBNAME NP xlsx "~/EPG194/data/np_info.xlsx";
+
+/* Delete the libref so that others can connect to the data (remove lock)*/
 LIBNAME NP clear;
 
-/* Import and create a coy of the excel file
-
-proc import datafile="libref" DBMS=filetype OUT=output-table; RUN; */
+/* Import and create a coy of the excel file */
 proc import datafile="~/EPG194/data/storm_damage.tab" dbms=tab 
 		out=storm_damage_tab replace;
 run;
 
-/* common statistics procedures */
+/* Common statistics procedures */
 proc print data=pg1.np_summary (obs=20);
 	VAR Reg Type ParkName DayVisits TentCampers RVCampers;
 run;
@@ -54,7 +59,12 @@ proc freq data=pg1.np_summary;
 	Tables Reg Type;
 run;
 
-/* Species_ID starts with YOSE (Yosemite National Park) and Category equals Mammal. */
+proc means data=work.shoes mean sum maxdec=2;
+	var NetSales;
+	class region;
+run;
+
+/* Macro variables */
 %let ParkCode=ZION;
 %let SpeciesCat=Bird;
 
@@ -63,9 +73,7 @@ proc freq data=pg1.np_species;
 	WHERE Species_ID like "&ParkCode%" and Category="&SpeciesCat";
 run;
 
-proc print data=pg1.np_species;
-	VAR Species_ID Category Scientific_Name Common_Names;
-run;
+/* Sorting the data and creating 4 tabs: NP_SUMMARY, np_largeparks, Storm_cat, park_dups */
 
 proc sort data=PG1.NP_SUMMARY out=NP_SORT;
 	WHERE type="NP";
@@ -76,23 +84,13 @@ proc sort data=PG1.np_largeparks out=park_clean dupout=park_dups noduprecs;
 	BY _all_;
 run;
 
-data Storm_cat5;
+data Storm_cat;
 	set pg1.storm_summary;
 	WHERE MaxWindMPH>156 and StartDate >="01JAN2000"d;
 	keep Season Basin Name Type MaxWindMPH;
 run;
 
-data EU_OCC2016;
-	set PG1.EU_OCC;
-	where YearMon like "2016%";
-	*where ShortStay >= "1Jan2016"d and ShortStay < "1Jan2017"d;
-	format Hotel COMMA17. ShortStay COMMA17. Camp COMMA17.;
-	drop Geo;
-run;
-
-/*
-Category is Mammal and Common_Names includes Fox.
-*/
+/* Data + filter+ sorting the data output */
 data fox;
 	set pg1.np_species;
 	WHERE Category ="Mammal" and Common_Names like "%Fox%" and Common_Names not like "%Squirrel%";
@@ -103,6 +101,7 @@ proc sort data=fox;
 	by Common_Names;
 run;
 
+/* Functions SUBSTR, MDY */
 
 data pacific;
 	set pg1.storm_summary;
@@ -119,7 +118,7 @@ data eu_occ_total;
 	Format Hotel ShortStay Camp Total COMMA11. ReportDate MONYY7.;
 run;
 
-/* pg1.np_summary */
+/* IF THEN DO */
 
 data parks monuments;
 	set pg1.np_summary;
@@ -134,7 +133,7 @@ data parks monuments;
 	Keep Reg ParkName DayVisits OtherLodging Campers ParkType;
 run;
 
-
+/* Splitting into two tabs */
 proc freq data=pg1.storm_final order=freq noprint;
 	tables StartDate / out= storm_count;
 	tables BasinName / out= basin_count;
@@ -143,6 +142,7 @@ proc freq data=pg1.storm_final order=freq noprint;
 		StartDate="BASIN_COUNT";
 run;
 
+/* Frequency plot */
 ods graphics on;
 ods noproctitle;
 title "Categories of Reported Species";
@@ -154,7 +154,7 @@ run;
 title;
 
 
-
+/* Cross tab analysis */
 title "Park Types by Region";
 proc freq data=pg1.np_codelookup ORDER=FREQ;
 	tables Type*Region / norow nocol nopercent;
@@ -163,6 +163,7 @@ run;
 title;
 
 
+/* Cross tab analysis + freq plot */
 ods graphics on;
 ods noproctitle;
 proc freq data=pg1.np_codelookup ORDER=FREQ;
@@ -171,7 +172,13 @@ proc freq data=pg1.np_codelookup ORDER=FREQ;
 	WHERE Type not like "%Other%" and Type in ("National Historic Site", "National Monument", "National Park");
 run;
 
+/* Cross tab analysis */
+proc freq data=sashelp.cars;
+    where Cylinders in (4,6) and Type in ('Sedan','SUV');
+    tables Type*Cylinders / nocol norow crosslist;
+run;
 
+/* One Way mean analysis */
 proc means data=pg1.storm_final mean min n maxdec=0;
 	var MinPressure;
 	where Season >=2010;
@@ -179,6 +186,7 @@ proc means data=pg1.storm_final mean min n maxdec=0;
 	ways 1;
 run;
 
+/* Two Way mean analysis and change column headers */
 proc means data=pg1.np_westweather noprint;
     where Precip ne 0;
     var Precip;
@@ -187,7 +195,7 @@ proc means data=pg1.np_westweather noprint;
     output out=rainstats n=RainDays sum=TotalRain;
 run;
 
-
+/* Poc print with labels */
 title1 'Rain Statistics by Year and Park';
 proc print data=rainstats label noobs;
     var Name Year RainDays TotalRain;
@@ -198,6 +206,7 @@ proc print data=rainstats label noobs;
 run;
 title;
 
+/* Testing titles */
 title1 'The First Line';
 title2 'The Second Line';
 proc print data=rainstats;
@@ -210,15 +219,10 @@ proc print data=rainstats;
 run;
 
 
-proc freq data=sashelp.cars;
-    where Cylinders in (4,6) and Type in ('Sedan','SUV');
-    tables Type*Cylinders / nocol norow crosslist;
-run;
+
+/* Exporting to excel libname, proc export, or ods */
 
 %let outpath=~/EPG194/output;
-
-/*exporting to excel libname, proc export, or ods*/
-
 proc export data=pg1.storm_final
 	outfile="&outpath/storm_final.csv";
 run; 
@@ -233,12 +237,13 @@ run;
 
 libname xl_lib clear;
 
-
 ods excel file="&outpath/StormStats.xlsx"
     style=snow
     options(sheet_name='South Pacific Summary');
 ods noproctitle;
 
+
+/* More stats */
 proc means data=pg1.storm_detail maxdec=0 median max;
     class Season;
     var Wind;
