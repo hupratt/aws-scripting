@@ -41,3 +41,12 @@ data work.boots;
     where Product='Boot';
     NewSales=Sales*1.25;
 run;
+
+/* number to datetime */
+
+data test;
+	set work.test;
+	*new=(sdcreateven*0.001)+"01jan1970 0:0:0"dt ;
+	new=(_TEMG001*0.001)+"01jan1970 0:0:0"dt ;
+	Format new datetime23.3;
+run;
