@@ -150,7 +150,7 @@ run;
 data weather_japan_clean;
     set pg2.weather_japan;
     NewLocation= COMPBL(Location);
-    NewStation= COMPRESS(Station, '- ');
+    NewStation= COMPRESS(Station, '- ');*remove dashes and spaces;
 run;
 
 /* CHAR manipulations: compbl, propcase, scan and strip */
@@ -199,3 +199,77 @@ data parks;
 
 run;
 
+
+/* Renaming columns */
+
+data stocks2;
+   set pg2.stocks2(rename=(Volume=CharVolume Date=CharDate));
+   Volume=input(CharVolume,comma12.);
+   Date=input(CharDate, date9.);
+   
+   drop Char:;
+   format Date date9.;
+run;
+
+/* add a FORMAT statement */
+
+data work.stocks;
+    set pg2.stocks;
+    CloseOpenDiff=Close-Open;
+    HighLowDiff=High-Low;
+    format Date WORDDATE. volume comma17. CloseOpenDiff HighLowDiff dollar7.2;
+run;
+
+/* Custom char formats */
+
+proc format;
+    value $genfmt 'F'='Female'
+                  'M'='Male';
+    value HRANGE low-57 = 'Below Average'
+                      57<-60 = 'Average'
+                      60<-high = 'Above Average' 
+                      . = 'miscoded';
+    value $region 'NA'='Atlantic'
+                  'WP','EP','SP'='Pacific'
+                  'NI','SI'='Indian'
+                  ' '='Missing'
+                  other='Unknown';
+run;
+
+proc print data=pg2.class_birthdate noobs;
+    where Age=12;
+    var Name Gender Height;
+    *add to the following FORMAT statement;
+    format Gender $genfmt. Height HRANGE.;
+run;
+
+/* Use a put format to apply 
+the formats directly on the data */
+
+data storm_summary;
+    set pg2.storm_summary;
+    Basin=upcase(Basin);
+    BasinGroup=put(Basin, $region.);
+run;
+
+
+/* Custom format for tables: practice p204p04 */
+
+
+data type_lookup;
+    set pg2.np_codeLookup(rename=(ParkCode=Start Type=Label));
+    retain FmtName "$TypeFmt";
+    keep Start Label FmtName;
+run;
+
+proc format CNTLIN=type_lookup;
+run;
+
+title 'Traffic Statistics';
+proc means data=pg2.np_monthlyTraffic maxdec=0 mean sum nonobs;
+    var Count;
+    class ParkCode Month;
+    label ParkCode='Name';
+    format ParkCode $TypeFmt.;
+run;
+title;
