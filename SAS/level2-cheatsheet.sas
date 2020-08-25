@@ -286,3 +286,12 @@ data inventory;
 932 38 4215 rake
 ;
 run;
+
+/* Difference between two dates */
+
+DATA _NULL_;
+date1 = datepart(datetime());
+date2 = "26AUG2020"d;
+days_in_between = date2 - date1;
+PUT days_in_between = ;
+RUN;
