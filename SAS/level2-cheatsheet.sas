@@ -273,3 +273,16 @@ proc means data=pg2.np_monthlyTraffic maxdec=0 mean sum nonobs;
     format ParkCode $TypeFmt.;
 run;
 title;
+
+/* Creating a test dataset */
+
+data inventory;
+   input InStock QuantitySold Idnum 8-11 Item $ 13-18;
+   datalines;
+100 52 1001 hammer
+345 49 1020 saw
+237 55 2003 wrench
+864 65 3015 shovel
+932 38 4215 rake
+;
+run;
