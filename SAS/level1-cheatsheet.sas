@@ -1,3 +1,7 @@
+***********************************************************;
+*  LESSON 1                                               *;
+***********************************************************;
+
 /*
 The SAS language
 1. libraries provide a way for everyone to 
@@ -37,10 +41,17 @@ LIBNAME NP xlsx "~/EPG194/data/np_info.xlsx";
 /* Delete the libref so that others can connect to the data (remove lock)*/
 LIBNAME NP clear;
 
-/* Import and create a coy of the excel file */
+/* Import and create a sas table from an excel file */
 proc import datafile="~/EPG194/data/storm_damage.tab" dbms=tab 
 		out=storm_damage_tab replace;
 run;
+
+/* create sas table from csv */
+
+proc import datafile="~/ECRB94/data/payroll.csv" out=payroll dbms=csv replace;
+    guessingrows=max; *Specifies the number of rows of the file to scan to determine the appropriate data type and length for the variables.;
+run;
+
 
 /* Common statistics procedures */
 proc print data=pg1.np_summary (obs=20);
