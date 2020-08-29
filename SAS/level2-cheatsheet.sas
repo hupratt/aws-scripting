@@ -295,3 +295,60 @@ date2 = "26AUG2020"d;
 days_in_between = date2 - date1;
 PUT days_in_between = ;
 RUN;
+
+
+/* concatenate two datasets with the same columns 
+on top of one another*/
+
+data class_current;
+    set sashelp.class pg2.class_new2(rename=(Student=Name));
+run;
+
+data work.np_combine;
+    set pg2.np_2015 pg2.np_2016;
+    drop Camping:;
+    WHERE month in (6, 7, 8) and ParkCode='ACAD' ;
+    CampTotal=SUM(of Camping:);
+    format CampTotal comma7.;
+run;
+
+
+/* Merging datasets requires sorting beforehand */
+
+data work.test1;
+set pg2.np_codelookup;
+run;
+
+data work.test2;
+set pg2.np_2016;
+
+run;
+
+proc sort data=test1;
+by ParkCode;
+run;
+
+proc sort data=test2;
+by ParkCode;
+run;
+
+data parkStats(keep=ParkCode ParkName Year Month DayVisits) parkOther(keep=ParkCode  ParkName );
+merge test1 test2;
+by ParkCode;
+if missing(DayVisits) then ouput parkOther;
+else output parkStats;
+run;
+
+data t1;
+set sashelp.cars(obs=10);
+keep make model;
+run;
+
+data t2;
+set sashelp.cars(obs=2);
+keep make model origin;
+run;
+
+data m;
+merge t1 t2;
+run;
