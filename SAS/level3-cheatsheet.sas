@@ -199,3 +199,24 @@ and http://support.sas.com/resources/papers/proceedings12/063-2012.pdf */
 
 %mend CompareWarn;
 %CompareWarn;
+
+/* Char to number in sql */
+
+proc sql;
+  create table work.steps as 
+  select car_make,
+         car_type,
+         input(count,best.) as count
+  from work.car_overall;
+quit; 
+
+/* Number to char in sql */
+
+proc sql;
+  create table work.steps as 
+  select car_make,
+         car_type,
+         put(account_number, 15.) as account_number
+  from work.car_overall;
+quit; 
+
