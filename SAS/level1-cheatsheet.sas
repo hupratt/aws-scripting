@@ -52,10 +52,26 @@ proc import datafile="~/ECRB94/data/payroll.csv" out=payroll dbms=csv replace;
     guessingrows=max; *Specifies the number of rows of the file to scan to determine the appropriate data type and length for the variables.;
 run;
 
+/* create sas table from xlsx */
+
+proc import datafile="~/ECRB94/data/employee.xlsx" out=employee dbms=XLSX 
+		replace;
+run;
+
+/* print xlsx contents */
+options validvarname=v7;
+libname xl xlsx "&path/employee.xlsx";
+proc contents data=xl._all_;
+run;
+
 
 /* Common statistics procedures */
 proc print data=pg1.np_summary (obs=20);
 	VAR Reg Type ParkName DayVisits TentCampers RVCampers;
+run;
+
+proc print data=cr.dates;
+format FormattedDate  ddmmyy10.;
 run;
 
 proc means data=pg1.np_summary;
@@ -75,11 +91,18 @@ proc means data=work.shoes mean sum maxdec=2;
 	class region;
 run;
 
+proc means data=cr.employee noprint;
+    var Salary;
+    class Department City;
+    output out=salary_summary mean=AvgSalary sum=TotalSalary;
+    ways 2;
+run;
+
 /* Macro variables */
 %let ParkCode=ZION;
 %let SpeciesCat=Bird;
 
-proc freq data=pg1.np_species;
+proc freq data=pg1.np_species order=freq;
 	Tables Abundance Conservation_Status;
 	WHERE Species_ID like "&ParkCode%" and Category="&SpeciesCat";
 run;
@@ -142,6 +165,20 @@ data parks monuments;
 		output monuments;
 	end;
 	Keep Reg ParkName DayVisits OtherLodging Campers ParkType;
+run;
+
+data bonus;
+    set cr.employee;
+    where TermDate is missing;
+    YearsEmp=yrdif(HireDate, "01JAN2019"d, "age");
+    if YearsEmp >= 10 then do;
+	     Bonus=Salary*.03;
+       Vacation=20;
+    end;
+    else do;
+	     Bonus=Salary*.02;
+	     Vacation=15;
+    end;
 run;
 
 /* Splitting into two tabs */
@@ -235,10 +272,12 @@ run;
 
 %let outpath=~/EPG194/output;
 proc export data=pg1.storm_final
-	outfile="&outpath/storm_final.csv";
+	outfile="&outpath/storm_final.csv"
+	dbms=csv replace;
 run; 
 
 
+/*  This LIBNAME statement creates the storm.xlsx file if it does not exist. */
 libname xl_lib xlsx "&outpath/storm.xlsx";
 
 data xl_lib.storm_final;
