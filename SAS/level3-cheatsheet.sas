@@ -122,6 +122,101 @@ run;
 proc contents data=cr._all_ nods;
 run;
 
+/* Create a local variable DiffLignes that is the difference between two dataset sizes */
+
+%MACRO Stats;
+	proc sql noprint;
+	   select count(*)
+	      into :DS_CONTRAT_AVT_LIGNES
+	      from SBPRH.DS_CONTRAT_AVT;
+	quit;
+
+	proc sql noprint;
+	   select count(*)
+	      into :DS_CONTRAT_AVT_PREV_RUN_LIGNES
+	      from SBPRH.DS_CONTRAT_AVT_PREV_RUN;
+	quit;
+	%let DiffLignes=%SYSEVALF(&DS_CONTRAT_AVT_LIGNES -&DS_CONTRAT_AVT_PREV_RUN_LIGNES);
+
+%MEND Stats;
+
+%Stats;
+
+%MACRO SendEmail;
+	FILENAME Mailbox EMAIL;
+ 	DATA _NULL_;
+	FILE Mailbox to=("sendto@him.com") subject='Subject' from='SENDER' CONTENT_TYPE="text/html"
+	attach=("/data/sas/exports/LOG.csv"  content_type="application/vnd.ms-excel");
+	put "<html><head>";
+	put "<style type='text/css' MEDIA=screen><!--";
+	put "body { color: #346170; font-family: Verdana; font-size: 10pt; }";
+	put "--></style></head><body>";
+	PUT "Bonjour,";
+	put "<p> Cordialement </p>";
+	put "</body></html>"; 
+	RUN;	
+%MEND SendEmail;
+
+%SendEmail;
 
 
+/* source: https://github.com/srosanba/sas-comparewarn/blob/master/src/CompareWarn.sas
+and http://support.sas.com/resources/papers/proceedings12/063-2012.pdf */
+%macro CompareWarn;
+
+   %*--- capture &sysinfo before data _null_ wipes it out ---;
+   %local CompareCode;   
+   %let CompareCode = &sysinfo;
+   
+   data errors;
+      CompareCode = &CompareCode;
+      %*--- all possible return code meanings for PROC COMPARE ---;
+      array msg(16) $60 _temporary_ (
+         "Les en-têtes de certaines colonnes sont différents                                       ",  /* 1*/
+         "Les types de données sont différents",                                                       /* 2*/
+         "Certaine(s) variable(s) ont un format d'entrée différent",                                   /* 3*/
+         "Certaine(s) variable(s) ont un format différent",                                            /* 4*/
+         "Certaine(s) variable(s) ont une longueur différente",                                        /* 5*/
+         "Certaine(s) variable(s) ont des en-têtes différents",                                        /* 6*/
+         "Le dataset précédent a des observation(s) qui ne sont pas dans le nouveau dataset",          /* 7*/
+         "Le nouveau dataset a des observation(s) qui ne sont pas dans le dataset précédent",          /* 8*/
+         "Le dataset précédent a des groupement BY qui ne se retrouvent pas dans le nouveau dataset",  /* 9*/
+         "Le nouveau dataset a des groupement BY qui ne se retrouvent pas dans le dataset précédent",  /*10*/
+         "Le dataset précédent a des variable(s) qui ne se retrouvent pas dans le nouveau dataset",    /*11*/
+         "Le nouveau dataset a des variable(s) qui ne se retrouvent pas dans le dataset précédent",    /*12*/
+         "Une comparaison retourne une valeur différente",                                             /*13*/
+         "Le types de certaine(s) variables diffèrents",                                               /*14*/
+         "Les variables du groupement BY ne correspondent pas"                                         /*15*/
+         );
+
+      if CompareCode > 0 then do k = 1 to 15;
+         match = band(2**(k-1),CompareCode);
+         if match > 0 then 
+		error=msg(k);
+		output;
+      end;
+   run;
+
+%mend CompareWarn;
+%CompareWarn;
+
+/* Char to number in sql */
+
+proc sql;
+  create table work.steps as 
+  select car_make,
+         car_type,
+         input(count,best.) as count
+  from work.car_overall;
+quit; 
+
+/* Number to char in sql */
+
+proc sql;
+  create table work.steps as 
+  select car_make,
+         car_type,
+         put(account_number, 15.) as account_number
+  from work.car_overall;
+quit; 
 
