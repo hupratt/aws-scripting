@@ -220,3 +220,19 @@ proc sql;
   from work.car_overall;
 quit; 
 
+
+/* DO ELSE in macros */
+
+%macro MyMacro;
+%if nomtab = "lauto"  %then
+	%do;
+	PROC COMPARE BASE=DEXZOS.LAUTO COMP=DBHSSD.LAUTO_202006
+	BRIEF NOVALUES;
+	%end;				
+	%else
+	%do;
+	PROC COMPARE BASE=DEXZOS.&&table_&i COMP=&thislib..&&table_&i 
+	BRIEF NOVALUES;
+	%end;
+%mend MyMacro;
+%MyMacro;
