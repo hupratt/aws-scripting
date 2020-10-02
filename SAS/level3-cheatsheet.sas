@@ -236,3 +236,15 @@ quit;
 	%end;
 %mend MyMacro;
 %MyMacro;
+
+/* Find records without a counterpart on the other table */
+proc sql noprint;
+	create table DESTIN.TEMP_except as
+	(SELECT Avt_Gen_NPolice,Avt_Gen_NAvenantInterne,Avt_Gen_NAvenantClient,Avt_Gen_Date from DESTIN.DS_CONTRAT_AVT_PREV_RUN
+	EXCEPT
+	SELECT Avt_Gen_NPolice,Avt_Gen_NAvenantInterne,Avt_Gen_NAvenantClient,Avt_Gen_Date from DESTIN.DS_CONTRAT_AVT)
+	UNION
+	(SELECT Avt_Gen_NPolice,Avt_Gen_NAvenantInterne,Avt_Gen_NAvenantClient,Avt_Gen_Date from DESTIN.DS_CONTRAT_AVT
+	EXCEPT
+	SELECT Avt_Gen_NPolice,Avt_Gen_NAvenantInterne,Avt_Gen_NAvenantClient,Avt_Gen_Date from DESTIN.DS_CONTRAT_AVT_PREV_RUN);
+quit;
