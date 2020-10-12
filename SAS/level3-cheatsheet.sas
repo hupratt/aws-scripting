@@ -248,3 +248,12 @@ proc sql noprint;
 	EXCEPT
 	SELECT Avt_Gen_NPolice,Avt_Gen_NAvenantInterne,Avt_Gen_NAvenantClient,Avt_Gen_Date from DESTIN.DS_CONTRAT_AVT_PREV_RUN);
 quit;
+
+/* reformat results from the linux dd command */
+
+data tests_hdd_auj_;
+	length vitesse $20;
+	set tests_hdd_auj;
+	if find(vitesse,'gb','i') ge 1 THEN vitesse_num=input(SUBSTR(vitesse,1,find(vitesse,'gb','i')-1),best.);
+	if find(vitesse,'mb','i') ge 1 THEN vitesse_num=input(SUBSTR(vitesse,1,find(vitesse,'mb','i')-1),best.);
+run;
