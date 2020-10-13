@@ -257,3 +257,44 @@ data tests_hdd_auj_;
 	if find(vitesse,'gb','i') ge 1 THEN vitesse_num=input(SUBSTR(vitesse,1,find(vitesse,'gb','i')-1),best.);
 	if find(vitesse,'mb','i') ge 1 THEN vitesse_num=input(SUBSTR(vitesse,1,find(vitesse,'mb','i')-1),best.);
 run;
+
+/* Read a csv in, once read in if table is empty delete */
+
+data testdata;
+
+    INFORMAT
+        NOEV             $CHAR13.
+        'SOURCE GESTION - INSPECTION'n $CHAR17.
+        'SOURCE EXPERTS'n $CHAR11.
+        'SOURCE LISTINGS'n $CHAR44.
+        'DATE DE REMONTEE'n MMDDYY10.
+        'Enquête/avis LEG'n BEST1.
+        GEST             $CHAR11.
+        'N° CLIENT'n     $CHAR10.
+        NOM              $CHAR68.
+        AGENT            $CHAR46.
+        BRANCHE          $CHAR10.
+        GARANTIE         $CHAR23.
+        'DATE SIN'n      MMDDYY10.
+        'ACCUSE DE RECEPTION SOUS 48H'n $CHAR1.
+        'AVIS SOUS 72H'n $CHAR1.
+        CIRCONSTANCES    $CHAR68.
+        ENJEU            $CHAR14.
+		'Gain Réel'n     $CHAR14.
+        DECISION         $CHAR8.
+        REMARQUES        $CHAR94.
+        'Charges DAV'n   BEST1.
+        'Charges LEG'n   BEST1.
+        'Date Cloture'n  $CHAR11.
+        'Pertinence du dossier remontée'n $CHAR1.
+        'Date rappel'n   DDMMYY10. ;
+
+	infile "/data/mycute.csv"
+          LRECL=294
+        ENCODING="UTF-8"
+        TERMSTR=CRLF
+        DLM='7F'x
+        MISSOVER
+        DSD ;
+
+run;
