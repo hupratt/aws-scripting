@@ -298,3 +298,10 @@ data testdata;
         DSD ;
 
 run;
+
+
+/* Prevent log tables from getting too big by applying a filter on the datetime value */
+data DLKDST.tests_hdd;
+	set DLKDST.tests_hdd;
+	where date>=intnx('dtday',datetime(),-7,'B');
+run;
