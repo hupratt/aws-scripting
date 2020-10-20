@@ -305,3 +305,12 @@ data DLKDST.tests_hdd;
 	set DLKDST.tests_hdd;
 	where date>=intnx('dtday',datetime(),-7,'B');
 run;
+
+/* Random task that takes long time to process */
+
+data RandData;
+   do i=1 to 10e7;
+      x=ceil(10*rand('uniform'));
+      output;
+   end;
+run;
