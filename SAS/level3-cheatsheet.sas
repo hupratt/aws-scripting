@@ -314,3 +314,18 @@ data RandData;
       output;
    end;
 run;
+
+/* testTableCreation macro */
+%macro testTableCreation;
+    %if %sysfunc(exist(QUAL_DS_CONTRAT_Summary_2)) %then %do;
+		data SBPRH.QUAL_DS_CONTRAT_Summary_2;
+		TestFormats='OK';
+		run;
+    %end;
+    %else %do;
+		data SBPRH.QUAL_DS_CONTRAT_Summary_2;
+		TestFormats='KO';
+		run;
+    %end;
+%mend testTableCreation;
+%testTableCreation;
