@@ -1036,3 +1036,18 @@ run;
 %mend testTableCreation;
 %testTableCreation;
 
+/* Creating and using a custom format */
+
+proc format library=DLSNST;
+value bbest
+other = [BESTDOTX12.];
+
+options fmtsearch = (DLSNST.formats);
+
+proc format
+library = DLSNST.formats fmtlib;
+select BBEST;
+run;
+
+usage in datastep or any other procedure:
+input("1221.242248238723872387283", BBEST.);
