@@ -1051,3 +1051,18 @@ run;
 
 usage in datastep or any other procedure:
 input("1221.242248238723872387283", BBEST.);
+
+/* Saving the size of a dataset into a macro variable */
+
+data audit_visualanalyticsBKP;
+    set EVDMLA.audit_visualanalytics nobs=n;
+	where datepart (timestamp_dttm) between '13Jan2021'd and '13Jan2021'd;
+run;
+
+data _null_;
+	call symputx("size",size);
+	stop;
+	set audit_visualanalyticsBKP nobs=size;
+run;
+
+%put &size;
