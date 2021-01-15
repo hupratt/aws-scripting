@@ -1066,3 +1066,9 @@ data _null_;
 run;
 
 %put &size;
+
+
+/* list existing tables in library */
+proc contents data=DMKPCM._all_ nods;
+run;
+
