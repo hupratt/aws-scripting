@@ -1072,3 +1072,15 @@ run;
 proc contents data=DMKPCM._all_ nods;
 run;
 
+
+data derp;
+set WORK.ELAN_MEMBERS;
+if _N_=5 then do;
+array table[*] team01-team50 ; 
+concat = catx(',',OF table(*));
+output;
+call symputx ("varlist", concat) ;
+put varlist;
+end;
+run;
+%put &varlist;
