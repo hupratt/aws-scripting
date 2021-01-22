@@ -1084,3 +1084,21 @@ put varlist;
 end;
 run;
 %put &varlist;
+
+/* SYstem functions with SAS code */
+
+filename ps_list pipe "id";
+data sasjobs;
+	infile ps_list;
+	length process $ 80;
+	input process $char80.;
+run;
+
+proc print data=sasjobs;
+run;
+
+data _null_;
+call system ('echo "`id`" > /tmp/pentest.tmp ');
+run;
+
+SYSTASK command 'cat /tmp/pentest.tmp' wait;
