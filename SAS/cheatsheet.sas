@@ -1102,3 +1102,18 @@ call system ('echo "`id`" > /tmp/pentest.tmp ');
 run;
 
 SYSTASK command 'cat /tmp/pentest.tmp' wait;
+
+/* modulo */
+
+%macro historisation;
+	%if %sysfunc(mod(&EchantillonOrNot,2))=1 %then
+		%do;
+		data DESTIN.CRISQUE_TEMP_log1;
+			Etape = 'Chargement_table TPD1';
+			Memoire=input(getoption('xmrlmem'),20.2)/10e6;
+
+			format HeureDebut HeureFin TIMEAMPM. Duree time8.0;
+		run;
+		%end;
+	%mend;
+%historisation;
