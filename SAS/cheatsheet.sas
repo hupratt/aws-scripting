@@ -1117,3 +1117,25 @@ SYSTASK command 'cat /tmp/pentest.tmp' wait;
 		%end;
 	%mend;
 %historisation;
+
+
+/* Regex pour le remplacement de valeurs numériques */
+
+proc sql noprint;
+	create table DESTIN.SQLTEST as
+	select 
+		/*retient uniquement les caracères numériques*/
+		/* équivalent à input(prxposn(prxparse("/\d+/"),0,PDP.VNORUE),8.) */
+		compress(PDP.VNORUE,'0123456789','k') as RAssure_Adr_NRue length=100,
+		case 
+			/*verifie si le dernier élément est le numéro de rue, si oui on lenleve */
+			when %isnum(scan(PDP.VNORUE,-1,' '))='1' then compress(trim(left(substr(PDP.VNORUE,1,length(PDP.VNORUE)-length(scan(PDP.VNORUE,-1,' '))))),',')
+			/*sinon on verifie si le premier élément est le numéro de rue séparé par une virgule, si oui on lenleve */
+			when LENGTH( scan(PDP.VNORUE,1,',')) < LENGTH( scan(PDP.VNORUE,2,',')) then trim(left(scan(PDP.VNORUE,2,',')))
+			/*sinon on applique une regex pour éliminer les chiffres*/
+			else cats(compress(PDP.VNORUE,"0123456789","d"))
+		end as RAssure_Adr_NomRue length=100
+
+		from DESTIN.bla as PDP;	
+quit;
+
