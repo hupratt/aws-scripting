@@ -1119,6 +1119,18 @@ SYSTASK command 'cat /tmp/pentest.tmp' wait;
 %historisation;
 
 
+%macro isnum(str);
+ verify(trim(left(&str)),'0123456789')=0 or /*number only*/
+ verify(trim(left(&str)),'0123456789.')=0
+ and not indexc(substr(&str,indexc(&str,'.')+1), '.') or /*allow only one '.'*/
+ verify(trim(left(&str)),'0123456789.+-')=0
+ and not indexc(substr(&str,indexc(&str,'.')+1), '.')
+ and (indexc(&str,'+-')=1
+ and not indexc(substr(&str,2),'+-') /*allow only one leading '+' or '-'*/
+ and indexc(&str,'0123456789.') > 1 ) or /* '+-' must followed by number*/
+ compress(&str)='' /*'', ' ', or multiple ' ' is numeric*/
+%mend; 
+
 /* Regex pour le remplacement de valeurs numériques */
 
 proc sql noprint;
