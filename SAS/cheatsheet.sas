@@ -1147,7 +1147,12 @@ proc sql noprint;
 			/*sinon on applique une regex pour éliminer les chiffres*/
 			else cats(compress(PDP.VNORUE,"0123456789","d"))
 		end as RAssure_Adr_NomRue length=100
-
+		/* enlève complément de rue du nom de la rue */
+		case 
+			when length(PDP.VCOMPADR)>0 then tranwrd(trim(PDP.VNORUE), trim(PDP.VCOMPADR), "")
+			else ""
+		end as Cmplment
+		
 		from DESTIN.bla as PDP;	
 quit;
 
