@@ -1140,6 +1140,10 @@ proc sql noprint;
 		/* équivalent à input(prxposn(prxmatch(prxparse("/\d+/"),PDP.VNORUE),0,PDP.VNORUE),$8.) */
 		compress(PDP.VNORUE,'0123456789','k') as RAssure_Adr_NRue length=100,
 		case 
+			when prxmatch(prxparse("/\d+\w/"),PDP.VNORUE)>0 then input(prxposn(prxmatch(prxparse("/\d+\w/"),PDP.VNORUE),0,PDP.VNORUE),$8.)
+			else '' 
+		end as RAssure_Adr_NRue2,
+		case 
 			/*verifie si le dernier élément est le numéro de rue, si oui on lenleve */
 			when %isnum(scan(PDP.VNORUE,-1,' '))='1' then compress(trim(left(substr(PDP.VNORUE,1,length(PDP.VNORUE)-length(scan(PDP.VNORUE,-1,' '))))),',')
 			/*sinon on verifie si le premier élément est le numéro de rue séparé par une virgule, si oui on lenleve */
