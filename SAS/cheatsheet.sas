@@ -1137,7 +1137,7 @@ proc sql noprint;
 	create table DESTIN.SQLTEST as
 	select 
 		/*retient uniquement les caracères numériques*/
-		/* équivalent à input(prxposn(prxparse("/\d+/"),0,PDP.VNORUE),8.) */
+		/* équivalent à input(prxposn(prxmatch(prxparse("/\d+/"),PDP.VNORUE),0,PDP.VNORUE),$8.) */
 		compress(PDP.VNORUE,'0123456789','k') as RAssure_Adr_NRue length=100,
 		case 
 			/*verifie si le dernier élément est le numéro de rue, si oui on lenleve */
