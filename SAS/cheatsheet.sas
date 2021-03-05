@@ -1160,3 +1160,10 @@ proc sql noprint;
 		from DESTIN.bla as PDP;	
 quit;
 
+/* Verifier si certaines lignes ne se retrouvent pas sur une autre table */
+
+data EstSurAEtPasSurB;
+	merge DESTIN.CRISQUE_TEMP_Proprietaire9(in=a) DESTIN.CRISQUE_TEMP_Proprietaire10(in=b);
+	by sdcontrat sdcreateven RIdentite_Gen_NRisque;
+	if a and not b;
+run;
