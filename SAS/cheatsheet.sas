@@ -1167,3 +1167,12 @@ data EstSurAEtPasSurB;
 	by sdcontrat sdcreateven RIdentite_Gen_NRisque;
 	if a and not b;
 run;
+
+/*arrays*/
+data WORK.test(keep=vcontenu vcontenu1 vcontenu2);
+	length vcontenu1 $32000 vcontenu2 $32000;
+	array vcontenus[2] $ vcontenu1-vcontenu2;
+	set HD2.TRC013_NOTESUIVI;
+	vcontenus(1) = substr(vcontenu,1,32000);
+	vcontenus(2) = substr(vcontenu,32001,64000);
+run;
