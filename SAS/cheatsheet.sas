@@ -1176,3 +1176,42 @@ data WORK.test(keep=vcontenu vcontenu1 vcontenu2);
 	vcontenus(1) = substr(vcontenu,1,32000);
 	vcontenus(2) = substr(vcontenu,32001,64000);
 run;
+
+/* Column exists then do */
+
+
+proc sql;
+   create table ttt
+       (IdNum char(4),
+        Gender char(1),
+        Jobcode char(3),
+        Salary num,
+        Birth num informat=date7.
+                  format=date7.,
+        Hired num informat=date7.
+                  format=date7.);
+
+insert into ttt
+    values('1639','F','TA1',42260,'26JUN70'd,'28JAN91'd)
+    values('1065','M','ME3',38090,'26JAN54'd,'07JAN92'd)
+    values('1400','M','ME1',29769.'05NOV67'd,'16OCT90'd)
+
+values('1561','M',null,36514,'30NOV63'd,'07OCT87'd)
+    values('1221','F','FA3',.,'22SEP63'd,'04OCT94'd);
+
+
+
+%macro varexist(ds,var);
+%local dsid ;
+%let dsid = %sysfunc(open(&ds));
+%if (&dsid) %then %sysfunc(varnum(&dsid,&var));
+%else 0 ;
+%let dsid = %sysfunc(close(&dsid));
+%mend varexist;
+
+data want;
+  set ttt;
+%if %varexist(ttt,IdNum) %then %do;
+  newcolumn='Address';
+%end;
+run;
