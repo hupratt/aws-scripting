@@ -1,12 +1,12 @@
 # SAS 9.4 Base Programming – Performance Based Exam
 
 - [x] Access and Create Data Structures <br/>
-
-data work.junefee;<br/>
-set cert.admitjune;<br/>
-where age>39;<br/>
-run;<br/>
-
+```sas
+data work.junefee;
+set cert.admitjune;
+where age>39;
+run;
+```
 proc sql noprint;<br/>
    select count(*)<br/>
       into :DS_CONTRAT_AVT_LIGNES<br/>
