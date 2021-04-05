@@ -1,5 +1,7 @@
 # SAS 9.4 Base Programming – Performance Based Exam
 
+Check list of topics you need to master in order to become a SAS Certified Specialist
+
 - [x] Access and Create Data Structures <br/>
 ```sas
 data work.junefee;
@@ -9,31 +11,52 @@ run;
 ```
 
 ```sas
+proc print data=work.junefee;
+run;
+```
+
+```sas
+proc freq data=sashelp.cars;
+table origin*DriveTrain;
+run;
+```
+
+- [x] Create temporary and permanent SAS data sets. <br/>
+
+```sas
 proc sql noprint;
+create table work.steps as 
    select count(*)
       into :DS_CONTRAT_AVT_LIGNES
       from SBPRH.DS_CONTRAT_AVT;
 quit;
 ```
 
-- [x] Create temporary and permanent SAS data sets. <br/>
 ```sas
-LIBNAME PG1 base "~/EPG194/data/.sas7bdat";
+LIBNAME PG1 base "~/EPG194/data/";
 
 data PG1.storm_summary;
 set mydata.storm;
 run;
 ```
-- [ ] Use a DATA step to create a SAS data set from an existing SAS data set. <br/>
+- [x] Use a DATA step to create a SAS data set from an existing SAS data set. <br/>
 - [ ] Investigate SAS data libraries using base SAS utility procedures. <br/>
-- [ ] Use a LIBNAME statement to assign a library reference name to a SAS librar <br/>y.
+
+```sas
+PROC CONTENTS data="~/EPG194/data/storm_summary.sas7bdat";
+run;
+PROC CONTENTS data=NP.parks;
+run;
+```
+
+- [ ] Use a LIBNAME statement to assign a library reference name to a SAS library. <br/>
 - [ ] Investigate a library programmatically using the CONTENTS procedure. <br/>
 - [ ] Access data. <br/>
 - [ ] Access SAS data sets with the SET statement. <br/>
 - [ ] Use PROC IMPORT to access non-SAS data sources. <br/>
-- [ ] o Read delimited and Microsoft Excel (.xlsx) files with PROC IMPORT. <br/>
-- [ ] o Use PROC IMPORT statement options (OUT=, DBMS=, REPLACE) <br/>
-- [ ] o Use the GUESSINGROWS statement <br/>
+o Read delimited and Microsoft Excel (.xlsx) files with PROC IMPORT. <br/>
+o Use PROC IMPORT statement options (OUT=, DBMS=, REPLACE) <br/>
+o Use the GUESSINGROWS statement <br/>
 - [ ] Use the SAS/ACCESS XLSX engine to read a Microsoft Excel workbook.xlsx fil <br/>e.
 - [ ] Combine SAS data sets. <br/>
 - [ ] Concatenate data sets. <br/>
@@ -74,10 +97,10 @@ run;
 - [ ] Use SAS functions to manipulate character data, numeric data, and SAS date values <br/>
 - [ ] Use SAS functions such as SCAN, SUBSTR, TRIM, UPCASE, and LOWCASE to perform<br/>
 - [ ] tasks such as the tasks shown below.<br/>
-- [ ] o Replace the contents of a character value.<br/>
-- [ ] o Trim trailing blanks from a character value.<br/>
-- [ ] o Search a character value and extract a portion of the value.<br/>
-- [ ] o Convert a character value to upper or lowercase.<br/>
+o Replace the contents of a character value.<br/>
+o Trim trailing blanks from a character value.<br/>
+o Search a character value and extract a portion of the value.<br/>
+o Convert a character value to upper or lowercase.<br/>
 - [ ] Use SAS numeric functions such as SUM, MEAN, RAND, SMALLEST, LARGEST, ROUND,<br/>
 - [ ] and INT.<br/>
 - [ ] Create SAS date values by using the functions MDY, TODAY, DATE, and TIME.<br/>
@@ -109,7 +132,28 @@ run;
 - [ ] Use PUTLOG to write the value of a variable, formatted values, or to write values of all<br/>
 - [ ] variables.<br/>
 - [ ] Use PUTLOG with Conditional logic.<br/>
-- [ ] Use temporary variables N and ERROR to debug a DATA step.<br/>
+- [x] Use temporary variables N and ERROR to debug a DATA step.<br/>
+```sas
+data work.newcalc;
+set cert.loan;
+if rate>0 then Interest=amount*(rate/12);
+else put 'DATA ERROR: ' rate= _n_ = ;
+run;
+```
+
+```sas
+data have;
+ set sashelp.class;
+ v = height + 'GGGGGG';
+ if _error_ = 1 then do;
+ put 'Error Occurred at ' _N_;
+ v + height;
+ sum_height + height;
+ _error_ = 0;
+ end;
+run;
+```
+
 - [ ] Recognize and correct syntax errors.<br/>
 - [ ] Identify the characteristics of SAS statements.<br/>
 - [ ] Define SAS syntax rules including the typical types of syntax errors such as misspelled<br/>
@@ -119,11 +163,11 @@ run;
 - [ ] Generate Reports and Output<br/>
 - [ ] Generate list reports using the PRINT procedure.<br/>
 - [ ] Modify the default behavior of PROC PRINT by adding statements and options such as<br/>
-- [ ] o use the VAR statement to select and order variables.<br/>
-- [ ] o calculate totals with a SUM statement.<br/>
-- [ ] o select observations with a WHERE statement.<br/>
-- [ ] o use the ID statement to identify observations.<br/>
-- [ ] o use the BY statement to process groups.<br/>
+o use the VAR statement to select and order variables.<br/>
+o calculate totals with a SUM statement.<br/>
+o select observations with a WHERE statement.<br/>
+o use the ID statement to identify observations.<br/>
+o use the BY statement to process groups.<br/>
 - [ ] Generate summary reports and frequency tables using base SAS procedures.<br/>
 - [ ] Produce one-way and two-way frequency tables with the FREQ procedure.<br/>
 - [ ] Enhance frequency tables with options (NLEVELS, ORDER=).<br/>
@@ -134,8 +178,8 @@ run;
 - [ ] Enhance reports system user-defined formats, titles, footnotes and SAS System<br/>
 - [ ] reporting options.<br/>
 - [ ] Use PROC FORMAT to define custom formats.<br/>
-- [ ] o VALUE statement<br/>
-- [ ] o CNTLIN= option<br/>
+o VALUE statement<br/>
+o CNTLIN= option<br/>
 - [ ] Use the LABEL statement to define descriptive column headings.<br/>
 - [ ] Control the use of column headings with the LABEL and SPLIT=options in PROC PRINT<br/>
 - [ ] output.<br/>
@@ -149,5 +193,5 @@ run;
 - [ ] DATA step.<br/>
 - [ ] Export data to Microsoft Excel using the SAS/ACCESS XLSX engine.<br/>
 - [ ] Note: All 23 main objectives will be tested on every exam. The 70 expanded objectives are<br/>
-- [ ] provided for additional explanation and define the entire domain that could be tested.- [ ] <br/>
+- [ ] provided for additional explanation and define the entire domain that could be tested.<br/>
 <br/>
