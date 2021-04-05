@@ -68,6 +68,7 @@ run;
 proc print data=meeting;
    format mtg sendmail date9.;
    title 'When To Send Announcements';
+   where Country in ('yellow', 'blue');
 run;
 ```
 
@@ -258,8 +259,8 @@ o use the BY statement to process groups.<br/>
 - [ ] Generate summary reports and frequency tables using base SAS procedures.<br/>
 
 ```sas
-proc freq data=sashelp.cars;
-table origin*DriveTrain;
+proc freq data=sashelp.cars order=freq;
+   table origin*DriveTrain;
 run;
 ```
 
