@@ -7,11 +7,14 @@ set cert.admitjune;
 where age>39;
 run;
 ```
-proc sql noprint;<br/>
-   select count(*)<br/>
-      into :DS_CONTRAT_AVT_LIGNES<br/>
-      from SBPRH.DS_CONTRAT_AVT;<br/>
+
+```sas
+proc sql noprint;
+   select count(*)
+      into :DS_CONTRAT_AVT_LIGNES
+      from SBPRH.DS_CONTRAT_AVT;
 quit;<br/>
+```
 
 - [ ] Create temporary and permanent SAS data sets. <br/>
 - [ ] Use a DATA step to create a SAS data set from an existing SAS data set. <br/>
