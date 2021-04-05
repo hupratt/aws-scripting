@@ -1,11 +1,17 @@
 # SAS 9.4 Base Programming – Performance Based Exam
 
-- [ ] Access and Create Data Structures <br/>
+- [x] Access and Create Data Structures <br/>
 
-data work.junefee;
-set cert.admitjune;
-where age>39;
-run;
+data work.junefee;<br/>
+set cert.admitjune;<br/>
+where age>39;<br/>
+run;<br/>
+
+proc sql noprint;
+   select count(*)
+      into :DS_CONTRAT_AVT_LIGNES
+      from SBPRH.DS_CONTRAT_AVT;
+quit;
 
 - [ ] Create temporary and permanent SAS data sets. <br/>
 - [ ] Use a DATA step to create a SAS data set from an existing SAS data set. <br/>
