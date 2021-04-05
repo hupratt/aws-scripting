@@ -13,10 +13,17 @@ proc sql noprint;
    select count(*)
       into :DS_CONTRAT_AVT_LIGNES
       from SBPRH.DS_CONTRAT_AVT;
-quit;<br/>
+quit;
 ```
 
-- [ ] Create temporary and permanent SAS data sets. <br/>
+- [x] Create temporary and permanent SAS data sets. <br/>
+```sas
+LIBNAME PG1 base "~/EPG194/data/.sas7bdat";
+
+data PG1.storm_summary;
+set mydata.storm;
+run;
+```
 - [ ] Use a DATA step to create a SAS data set from an existing SAS data set. <br/>
 - [ ] Investigate SAS data libraries using base SAS utility procedures. <br/>
 - [ ] Use a LIBNAME statement to assign a library reference name to a SAS librar <br/>y.
