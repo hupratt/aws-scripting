@@ -1,13 +1,41 @@
-# SAS 9.4 Base Programming – Performance Based Exam
+# SAS 9.4 Base Programming Exam
 
 Check list of topics you need to master in order to become a SAS Certified Specialist
 
 - [x] Access and Create Data Structures <br/>
 
 ```sas
-data work.junefee;
-set cert.admitjune;
-where age>39;
+/* Import and create a sas table from an excel file */
+proc import datafile="~/EPG194/data/storm_damage.tab" dbms=tab 
+		out=storm_damage_tab replace;
+run;
+
+/* create sas table from csv */
+proc import datafile="~/ECRB94/data/payroll.csv" out=payroll dbms=csv replace;
+    guessingrows=max; *Specifies the number of rows of the file to scan to determine the appropriate data type and length for the variables.;
+run;
+
+/* create sas table from xlsx */
+proc import datafile="~/ECRB94/data/employee.xlsx" out=employee dbms=XLSX sheet=boot getnames=yes
+		replace;
+run;
+
+/* create sas table from txt */
+proc import datafile='C:\Users\Student1\cert\delimiter.txt'
+dbms=dlm
+out=mydata
+replace;
+delimiter='&';
+getnames=yes;
+run;
+
+/*  This LIBNAME statement creates the storm.xlsx file if it does not exist. */
+libname xl_lib xlsx "&outpath/storm.xlsx";
+
+/* Use the SET statement to indicate which worksheet in the Excel file you want to read. */
+data pg1.storm_final;
+	set xl_lib.storm_final;
+	drop Lat Lon Basin OceanCode;
 run;
 ```
 
@@ -21,6 +49,25 @@ data inventory;
 864 65 3015 shovel
 932 38 4215 rake
 ;
+run;
+```
+
+```sas
+data meeting;
+options nodate pageno=1 linesize=80 pagesize=60;    
+   input region $ mtg : mmddyy8.;
+   sendmail=mtg-45;
+   datalines;
+N  11-24-99
+S  12-28-99
+E  12-03-99
+W  10-04-99
+;
+run;
+
+proc print data=meeting;
+   format mtg sendmail date9.;
+   title 'When To Send Announcements';
 run;
 ```
 
