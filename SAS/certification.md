@@ -3,6 +3,7 @@
 Check list of topics you need to master in order to become a SAS Certified Specialist
 
 - [x] Access and Create Data Structures <br/>
+
 ```sas
 data work.junefee;
 set cert.admitjune;
@@ -11,13 +12,15 @@ run;
 ```
 
 ```sas
-proc print data=work.junefee;
-run;
-```
-
-```sas
-proc freq data=sashelp.cars;
-table origin*DriveTrain;
+data inventory;
+   input InStock QuantitySold Idnum 8-11 Item $ 13-18;
+   datalines;
+100 52 1001 hammer
+345 49 1020 saw
+237 55 2003 wrench
+864 65 3015 shovel
+932 38 4215 rake
+;
 run;
 ```
 
@@ -40,17 +43,40 @@ set mydata.storm;
 run;
 ```
 - [x] Use a DATA step to create a SAS data set from an existing SAS data set. <br/>
-- [ ] Investigate SAS data libraries using base SAS utility procedures. <br/>
 
 ```sas
-PROC CONTENTS data="~/EPG194/data/storm_summary.sas7bdat";
-run;
-PROC CONTENTS data=NP.parks;
+data work.junefee;
+set cert.admitjune;
+where age>39;
 run;
 ```
 
-- [ ] Use a LIBNAME statement to assign a library reference name to a SAS library. <br/>
+- [] Investigate SAS data libraries using base SAS utility procedures. <br/>
+
+```sas
+LIBNAME PG1 base "~/EPG194/data/";
+
+PROC CONTENTS data=PG1._all__;
+run;
+PROC CONTENTS data=PG1.parks;
+run;
+```
+
+- [x] Use a LIBNAME statement to assign a library reference name to a SAS library. <br/>
+
+```sas
+LIBNAME PG1 base "~/EPG194/data/";
+```
+
 - [ ] Investigate a library programmatically using the CONTENTS procedure. <br/>
+```sas
+LIBNAME PG1 base "~/EPG194/data/";
+
+PROC CONTENTS data=PG1._all__;
+run;
+PROC CONTENTS data=PG1.parks;
+run;
+```
 - [ ] Access data. <br/>
 - [ ] Access SAS data sets with the SET statement. <br/>
 - [ ] Use PROC IMPORT to access non-SAS data sources. <br/>
@@ -130,9 +156,19 @@ o Convert a character value to upper or lowercase.<br/>
 - [ ] Identify and resolve programming logic errors.<br/>
 - [ ] Use the PUTLOG Statement in the Data Step to help identify logic errors.<br/>
 - [ ] Use PUTLOG to write the value of a variable, formatted values, or to write values of all<br/>
+
+```sas
+data work.grades;
+set sashelp.BWEIGHT(obs=5);
+AverageScore=MEAN(Weight + Black + Married);
+putlog Weight= Black= Married=;
+run;
+```
+
 - [ ] variables.<br/>
 - [ ] Use PUTLOG with Conditional logic.<br/>
 - [x] Use temporary variables N and ERROR to debug a DATA step.<br/>
+
 ```sas
 data work.newcalc;
 set cert.loan;
@@ -162,6 +198,10 @@ run;
 - [ ] 3Exam Content Guide<br/>
 - [ ] Generate Reports and Output<br/>
 - [ ] Generate list reports using the PRINT procedure.<br/>
+```sas
+proc print data=work.junefee;
+run;
+```
 - [ ] Modify the default behavior of PROC PRINT by adding statements and options such as<br/>
 o use the VAR statement to select and order variables.<br/>
 o calculate totals with a SUM statement.<br/>
@@ -169,6 +209,13 @@ o select observations with a WHERE statement.<br/>
 o use the ID statement to identify observations.<br/>
 o use the BY statement to process groups.<br/>
 - [ ] Generate summary reports and frequency tables using base SAS procedures.<br/>
+
+```sas
+proc freq data=sashelp.cars;
+table origin*DriveTrain;
+run;
+```
+
 - [ ] Produce one-way and two-way frequency tables with the FREQ procedure.<br/>
 - [ ] Enhance frequency tables with options (NLEVELS, ORDER=).<br/>
 - [ ] Use PROC FREQ to validate data in a SAS data set.<br/>
