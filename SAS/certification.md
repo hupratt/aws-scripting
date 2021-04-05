@@ -1,12 +1,12 @@
 # SAS 9.4 Base Programming – Performance Based Exam
 
 - [ ] Access and Create Data Structures <br/>
-<code>
+
 data work.junefee;
 set cert.admitjune;
 where age>39;
 run;
-  </code>
+
 - [ ] Create temporary and permanent SAS data sets. <br/>
 - [ ] Use a DATA step to create a SAS data set from an existing SAS data set. <br/>
 - [ ] Investigate SAS data libraries using base SAS utility procedures. <br/>
