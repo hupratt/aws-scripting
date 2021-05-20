@@ -1215,3 +1215,16 @@ data want;
   newcolumn='Address';
 %end;
 run;
+
+/* Store column names in a 1d vector */
+
+proc contents data=SBPRH.DS_CONTRAT_RSQ(obs=0)
+    memtype=DATA 
+    out=meta(keep=NAME VARNUM)
+    nodetails 
+    noprint; 
+run;
+
+proc sort data=meta out=meta_sorted(keep=NAME);
+by VARNUM;
+run;
