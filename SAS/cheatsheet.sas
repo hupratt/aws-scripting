@@ -1228,3 +1228,39 @@ run;
 proc sort data=meta out=meta_sorted(keep=NAME);
 by VARNUM;
 run;
+
+/* convert text log into dataset with datetime formats */
+
+DATA kofax;
+    LENGTH
+        DateTime         $ 20
+        Log              $ 250 ;
+    FORMAT
+        DateTime         $CHAR20.
+        Log              $CHAR250. ;
+    INFORMAT
+        DateTime         $CHAR20.
+        Log              $CHAR250. ;
+    INFILE '/data/kofax.txt'
+        ENCODING="UTF-8"
+        TERMSTR=CRLF
+        MISSOVER
+        DSD ;
+    INPUT
+        DateTime         : ? 1-19 
+        Log              : ? 23-273;
+RUN;
+
+proc format;
+  picture ymdhms other='%0Y-%0m-%0d %0H:%0M:%0S' (datatype=datetime);
+run;
+
+data kofax1;
+	set kofax;
+	X =put(input(substr(datetime, 1, 10), yymmdd10.),date9.);
+	Y= substr(DateTime,12,8);
+	Z =catx(':',X,Y);
+	format datetime2 ymdhms.;
+	datetime2 = input(Z, DATETIME18.);
+	keep datetime2 Log;
+run;
