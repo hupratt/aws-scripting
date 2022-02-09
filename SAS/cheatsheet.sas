@@ -1264,3 +1264,16 @@ data kofax1;
 	datetime2 = input(Z, DATETIME18.);
 	keep datetime2 Log;
 run;
+
+/* Dealing with spaces in columns */
+
+data JIRA;
+set DSJIRA.JIRA (obs=1000);
+rename
+'Comité Qualité'n=Comite_Qualite;
+run;
+
+data JIRA2;
+set JIRA;
+if not missing(cats(of Comite_Qualite));
+run;
