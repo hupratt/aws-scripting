@@ -1277,3 +1277,16 @@ data JIRA2;
 set JIRA;
 if not missing(cats(of Comite_Qualite));
 run;
+
+/* manipuler els en tetes d'une table SAS */
+
+proc contents data=DSJIRA.JIRA(obs=0)
+    memtype=DATA 
+    out=entetes(keep=NAME VARNUM)
+    nodetails 
+    noprint; 
+run;
+
+proc sort data=entetes out=SBPRH.entetes(keep=NAME);
+	by VARNUM;
+run;
