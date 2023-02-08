@@ -1,23 +1,26 @@
-<mxfile host="app.diagrams.net" modified="2023-02-08T20:56:50.488Z" agent="5.0 (X11; Ubuntu)" etag="74M3p4t2vlMd4pC4oi_K" version="20.8.16" type="github">
+<mxfile host="app.diagrams.net" modified="2023-02-08T21:29:02.126Z" agent="5.0 (X11; Ubuntu)" etag="bXMP6uMLluuN9sNUc98k" version="20.8.16" type="github">
   <diagram name="Page-1" id="6X-WFrr9iym6pTOmZrIH">
-    <mxGraphModel dx="1598" dy="901" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2263" dy="1277" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="-eqFP2rU3eeV0thoWfOZ-1" value="" style="points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image;image=img/lib/allied_telesis/computer_and_terminals/Server_Desktop.svg;" vertex="1" parent="1">
-          <mxGeometry x="588" y="378" width="126.22" height="160" as="geometry" />
+          <mxGeometry x="665.64" y="390" width="126.22" height="160" as="geometry" />
         </mxCell>
         <mxCell id="-eqFP2rU3eeV0thoWfOZ-2" value="&lt;div&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;&lt;i&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;Netgear Black&lt;/font&gt;&lt;/i&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;&lt;i&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;12 TB RAID 5&lt;br&gt;&lt;/font&gt;&lt;/i&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="561.11" y="528" width="180" height="80" as="geometry" />
+          <mxGeometry x="638.75" y="540" width="180" height="80" as="geometry" />
         </mxCell>
         <mxCell id="-eqFP2rU3eeV0thoWfOZ-3" value="" style="points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image;image=img/lib/allied_telesis/computer_and_terminals/Server_Desktop.svg;" vertex="1" parent="1">
-          <mxGeometry x="369.89" y="518" width="126.22" height="160" as="geometry" />
+          <mxGeometry x="411.18" y="570" width="126.22" height="160" as="geometry" />
         </mxCell>
         <mxCell id="-eqFP2rU3eeV0thoWfOZ-4" value="&lt;div&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;&lt;i&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;Netgear Gray&lt;/font&gt;&lt;/i&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;&lt;i&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;6 TB RAID1&lt;br&gt;&lt;/font&gt;&lt;/i&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="348" y="668" width="170" height="80" as="geometry" />
+          <mxGeometry x="389.29" y="720" width="170" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="-eqFP2rU3eeV0thoWfOZ-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=20;strokeWidth=12;strokeColor=#08FF20;endArrow=none;endFill=0;" edge="1" parent="1" source="-eqFP2rU3eeV0thoWfOZ-5" target="-eqFP2rU3eeV0thoWfOZ-21">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="-eqFP2rU3eeV0thoWfOZ-5" value="" style="points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image;image=img/lib/allied_telesis/computer_and_terminals/Personal_Computer_with_Server.svg;fontSize=25;" vertex="1" parent="1">
-          <mxGeometry x="108" y="368" width="180" height="180" as="geometry" />
+          <mxGeometry x="140" y="400" width="150" height="150" as="geometry" />
         </mxCell>
         <mxCell id="-eqFP2rU3eeV0thoWfOZ-7" value="" style="verticalLabelPosition=bottom;sketch=0;aspect=fixed;html=1;verticalAlign=top;strokeColor=none;align=center;outlineConnect=0;shape=mxgraph.citrix.web_server;fontSize=25;" vertex="1" parent="1">
           <mxGeometry x="670" y="110" width="127.5" height="150" as="geometry" />
@@ -32,7 +35,7 @@
           <mxGeometry x="254.25" y="110" width="91.5" height="150" as="geometry" />
         </mxCell>
         <mxCell id="-eqFP2rU3eeV0thoWfOZ-11" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;&lt;i&gt;&lt;font style=&quot;font-size: 25px;&quot;&gt;Lian-Li desktop&lt;br&gt;&lt;/font&gt;&lt;/i&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="103" y="560" width="190" height="50" as="geometry" />
+          <mxGeometry x="120" y="560" width="190" height="50" as="geometry" />
         </mxCell>
         <mxCell id="-eqFP2rU3eeV0thoWfOZ-12" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;i&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Frizbox firewall&lt;/font&gt;&lt;br&gt;&lt;/font&gt;&lt;/i&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="230" y="281.25" width="140" height="40" as="geometry" />
@@ -43,8 +46,64 @@
         <mxCell id="-eqFP2rU3eeV0thoWfOZ-15" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Shuttle web server&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="638.75" y="280" width="190" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="-eqFP2rU3eeV0thoWfOZ-16" value="Writes tend to be slower, because of the parity data calculation, but &lt;br/&gt;data can be accessed and read even while a failed drive is being &lt;br/&gt;rebuilt. When drives fail, the RAID 5 system can read the information &lt;br/&gt;contained on the other drives and recreate that data, tolerating a &lt;br/&gt;single drive failure." style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=20;" vertex="1" parent="1">
-          <mxGeometry x="790" y="440" width="630" height="130" as="geometry" />
+        <mxCell id="-eqFP2rU3eeV0thoWfOZ-16" value="Writes tend to be slower, because of the parity data calculation, but &lt;br&gt;data can be accessed and read even while a failed drive is being &lt;br&gt;rebuilt. When drives fail, the RAID 5 system can read the information &lt;br&gt;contained on the other drives and recreate that data, tolerating a &lt;br&gt;single drive failure." style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=20;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="850" y="480" width="630" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="-eqFP2rU3eeV0thoWfOZ-17" value="This layout is useful when read performance or reliability is more important than write performance or the resulting data storage capacity" style="text;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="580" y="720" width="670.71" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="-eqFP2rU3eeV0thoWfOZ-21" value="" style="line;strokeWidth=12;rotatable=0;dashed=0;labelPosition=right;align=left;verticalAlign=middle;spacingTop=0;spacingLeft=6;points=[];portConstraint=eastwest;rounded=0;sketch=0;fontSize=20;strokeColor=#08FF20;" vertex="1" parent="1">
+          <mxGeometry x="260" y="351" width="447.71" height="39" as="geometry" />
+        </mxCell>
+        <mxCell id="-eqFP2rU3eeV0thoWfOZ-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=20;strokeWidth=12;strokeColor=#08FF20;endArrow=none;endFill=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="571" as="sourcePoint" />
+            <mxPoint x="730" y="371" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="490" y="371" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-eqFP2rU3eeV0thoWfOZ-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=20;strokeWidth=10;strokeColor=#08FF20;endArrow=none;endFill=0;entryX=0.473;entryY=1.007;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="-eqFP2rU3eeV0thoWfOZ-1" target="-eqFP2rU3eeV0thoWfOZ-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="728" y="370" as="sourcePoint" />
+            <mxPoint x="728" y="330" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-eqFP2rU3eeV0thoWfOZ-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=20;strokeWidth=10;strokeColor=#08FF20;endArrow=none;endFill=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490.28999999999996" y="380" as="sourcePoint" />
+            <mxPoint x="490" y="319.9994117647059" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="490.28999999999996" y="350" />
+              <mxPoint x="490.28999999999996" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-eqFP2rU3eeV0thoWfOZ-27" value="&lt;font color=&quot;#06BD18&quot;&gt;Local LAN created by the router &lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="330" y="420" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-eqFP2rU3eeV0thoWfOZ-28" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#FF0000;strokeWidth=12;fontSize=20;fontColor=#06BD18;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="577.579999999997" y="185" as="sourcePoint" />
+            <mxPoint x="667" y="185" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-eqFP2rU3eeV0thoWfOZ-29" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#FF0000;strokeWidth=12;fontSize=20;fontColor=#06BD18;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="346.57999999999697" y="184.71" as="sourcePoint" />
+            <mxPoint x="436" y="184.71" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-eqFP2rU3eeV0thoWfOZ-30" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#FF0000;strokeWidth=12;fontSize=20;fontColor=#06BD18;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="187" y="183" as="sourcePoint" />
+            <mxPoint x="251.25" y="183.46" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-eqFP2rU3eeV0thoWfOZ-31" value="Shuttle server hosting apache, nginx, " style="text;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="840" y="151" width="670.71" height="68" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
