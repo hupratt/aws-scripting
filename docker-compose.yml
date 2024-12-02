@@ -1,3 +1,4 @@
+services:
   app:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
@@ -21,3 +22,8 @@
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1450
