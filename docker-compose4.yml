@@ -1,3 +1,4 @@
+8ePx4QXy2rtn5IUKSB1Asnk3Sz/zs+a79R6/EYhqLuE=
 services:
   wireguard:
     image: lscr.io/linuxserver/wireguard:latest
