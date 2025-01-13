@@ -1,14 +1,38 @@
-services:
-  node_exporter:
-    ports:
-      - 9100:9100
-    image: quay.io/prometheus/node-exporter:v1.8.2
-    container_name: node_exporter
-    command: "--path.rootfs=/host"
-    pid: host
-    restart: unless-stopped
-    volumes:
-      - /:/host:ro,rslave
-    labels:
-      org.label-schema.group: "monitoring"
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
 
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://10.250.3.20:3100/loki/api/v1/push
+
+#client:
+#  url: http://loki.thekor.eu/loki/api/v1/push
+#  basic_auth:
+#    username: admin
+#    password: superlongpassword
+# htpasswd -c /etc/loki/.htpasswd admin superlongpassword twice
+
+scrape_configs:
+
+# local machine logs
+
+- job_name: system
+  static_configs:
+  - targets:
+ - localhost
+    labels:
+ job: varlogs
+ __path__: /var/log/*log
+
+## docker logs
+
+- job_name: docker 
+  pipeline_stages:
+    - docker: {}
+  static_configs:
+    - labels:
+ job: docker
+ __path__: /var/lib/docker/containers/*/*-json.log
