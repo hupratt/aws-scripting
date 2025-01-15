@@ -1,9 +1,9 @@
 services:
   server:
     image: influxdb:2.7
+    ports:
+      - 8086:8086
     container_name: influxdb-nele
     volumes:
     - ./data/server:/var/lib/influxdb2:Z
-    networks:
-    - caddy
     restart: on-failure
