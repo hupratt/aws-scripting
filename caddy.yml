@@ -1,0 +1,19 @@
+services:
+  caddy:
+    image: caddy:custom-2.7-alpine
+    build: ./
+    restart: always
+    ports:
+      - 443:443
+    volumes:
+      - ./data/etc:/etc/caddy/:Z
+      - ./data/config:/config:Z
+      - ./data/data:/data:z
+    environment:
+      HETZNER_API_TOKEN: $HETZNER_API_TOKEN
+      EMAIL_ACME: ""                 # The email address to use for ACME registr>
+    networks:
+      - caddy
+networks:
+  caddy:
+    name: caddy
